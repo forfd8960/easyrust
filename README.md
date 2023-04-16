@@ -1,2 +1,2 @@
-# easyrust
+## easyrust
 easy rust code
