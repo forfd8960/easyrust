@@ -1,0 +1,2 @@
+# easyrust
+easy rust code
