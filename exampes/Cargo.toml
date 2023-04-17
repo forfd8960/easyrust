@@ -11,3 +11,8 @@ edition = "2021"
 [[bin]]
 name="ctrlflow"
 path="controlflow/main.rs"
+
+
+[[bin]]
+name="structenum"
+path="structenum/main.rs"
