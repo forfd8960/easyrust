@@ -26,7 +26,7 @@ struct Date {
 
 #[derive(Debug)]
 struct LangList {
-    lang_list: Vec<Lang>
+    lang_list: Vec<Lang>,
 }
 
 impl LangList {
@@ -74,7 +74,7 @@ impl<'a> Project<'a> {
     }
 
     fn list_langs(&self, result: &mut Vec<String>) {
-       self.language.list_langs(result)
+        self.language.list_langs(result)
     }
 }
 
@@ -85,7 +85,9 @@ fn main() {
         day: 17,
     };
     let name = "rust-project";
-    let lang = &mut LangList { lang_list: vec![Lang::Rust] };
+    let lang = &mut LangList {
+        lang_list: vec![Lang::Rust],
+    };
     let prj = Project::new(&name, &date, lang);
     println!("{:?}", prj);
 

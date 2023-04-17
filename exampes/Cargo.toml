@@ -20,3 +20,7 @@ path="structenum/main.rs"
 [[bin]]
 name="generics"
 path="generics/main.rs"
+
+[[bin]]
+name="option"
+path="option/main.rs"
