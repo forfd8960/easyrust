@@ -16,3 +16,7 @@ path="controlflow/main.rs"
 [[bin]]
 name="structenum"
 path="structenum/main.rs"
+
+[[bin]]
+name="generics"
+path="generics/main.rs"
