@@ -22,7 +22,7 @@ fn handle_option(opts: &Vec<Option<&str>>) {
         match opt {
             Some(v) => {
                 println!("option value: {}", v);
-            },
+            }
             None => {
                 println!("value is None");
             }

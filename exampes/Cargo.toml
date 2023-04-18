@@ -24,3 +24,7 @@ path="generics/main.rs"
 [[bin]]
 name="option"
 path="option/main.rs"
+
+[[bin]]
+name="result"
+path="result/main.rs"
