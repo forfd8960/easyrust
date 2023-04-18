@@ -28,6 +28,10 @@ fn main() {
         println!("{:?}", parse_str_to_int(n));
     }
 
-    let nums = vec![None, Some(100)];
+    let nums = vec![Some(88), Some(100)];
     try_2_unwrap(&nums);
+
+    let value_list = vec!["1", "22.3", "abc"];
+    let forth_str = value_list.get(3).unwrap_or(&"*");
+    println!("the forth value is: {}", *forth_str);
 }
