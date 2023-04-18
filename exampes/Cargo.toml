@@ -28,3 +28,7 @@ path="option/main.rs"
 [[bin]]
 name="result"
 path="result/main.rs"
+
+[[bin]]
+name="qmark"
+path="questionmark/main.rs"

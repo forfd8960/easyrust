@@ -1,10 +1,8 @@
-
 #[derive(Debug)]
 enum MyError {
     NumTooLarge(String),
     NumTooSmall(String),
 }
-
 
 fn get_result(n: i32) -> Result<i32, MyError> {
     if n <= 100 && n >= 0 {
@@ -15,7 +13,7 @@ fn get_result(n: i32) -> Result<i32, MyError> {
         let s = format!("{} is too large", n);
         return Err(MyError::NumTooLarge(s));
     }
-    
+
     let s = format!("{} is too small", n);
     return Err(MyError::NumTooSmall(s));
 }
