@@ -40,3 +40,7 @@ path="trait/main.rs"
 [[bin]]
 name="iterator"
 path="iterator/main.rs"
+
+[[bin]]
+name="dyn-dis"
+path="trait/dyn_dispatch.rs"
