@@ -1,6 +1,5 @@
 use std::convert::From;
 
-
 #[derive(Debug)]
 struct Data {
     name: String,
@@ -11,11 +10,11 @@ struct Data {
 impl From<&str> for Data {
     fn from(value: &str) -> Self {
         let val_list: Vec<&str> = value.split(",").collect();
-        Self { 
+        Self {
             name: val_list[0].to_string(),
             desc: val_list[1].to_string(),
             value: val_list[2].parse().unwrap(),
-         }
+        }
     }
 }
 

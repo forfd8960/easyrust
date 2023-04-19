@@ -36,3 +36,7 @@ path="questionmark/main.rs"
 [[bin]]
 name="trait"
 path="trait/main.rs"
+
+[[bin]]
+name="iterator"
+path="iterator/main.rs"
