@@ -6,6 +6,20 @@ fn main() {
 
     let m = btree_map();
     println!("{}", get_value("rust", m));
+
+    let words = vec!["this", "is", "a", "good", "day", "good", "day"];
+    let words_count = count_words(words);
+    // words_count: {"day": 2, "this": 1, "a": 1, "good": 2, "is": 1}
+    println!("words_count: {:?}", words_count);
+}
+
+fn count_words(words: Vec<&str>) -> HashMap<&str, u32> {
+    let mut words_count = HashMap::<&str, u32>::new();
+    for word in words {
+        let count = words_count.entry(word).or_insert(0);
+        *count += 1;
+    }
+    words_count
 }
 
 fn hash_map() -> HashMap<&'static str, u32> {
