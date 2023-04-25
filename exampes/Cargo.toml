@@ -48,3 +48,7 @@ path="trait/dyn_dispatch.rs"
 [[bin]]
 name="collection"
 path="collections/main.rs"
+
+[[bin]]
+name="convert"
+path="convert/main.rs"

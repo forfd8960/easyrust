@@ -1,3 +1,5 @@
+use std::usize;
+
 fn main() {
     if_else_if();
     match_expr();
@@ -9,6 +11,8 @@ fn main() {
     match_part_value((23, 59, 0));
     match_part_value((10, 0, 59));
     match_part_value((10, 6, 30));
+
+    while_let();
 }
 
 fn if_else_if() {
@@ -83,4 +87,27 @@ fn match_part_value(time: (u8, u8, u8)) {
             println!("{:?}", t);
         }
     }
+}
+
+fn while_let() {
+    /*
+    idx: 0, char: +
+    idx: 1, char: -
+    idx: 2, char: *
+        */
+    let mut idx: usize = 0;
+    let char_vec = vec!['+', '-', '*'];
+    let chars: &[char] = &char_vec[..];
+    while let Some(ch) = peek(chars, idx) {
+        println!("idx: {}, char: {}", idx, ch);
+        idx += 1;
+    }
+}
+
+fn peek(chars: &[char], idx: usize) -> Option<char> {
+    if idx >= chars.len() {
+        return None;
+    }
+
+    Some(chars[idx])
 }
