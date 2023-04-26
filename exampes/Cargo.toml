@@ -52,3 +52,7 @@ path="collections/main.rs"
 [[bin]]
 name="convert"
 path="convert/main.rs"
+
+[[bin]]
+name="rc"
+path="rc/main.rs"
