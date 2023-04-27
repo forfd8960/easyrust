@@ -38,6 +38,10 @@ name="trait"
 path="trait/main.rs"
 
 [[bin]]
+name="vec-traits"
+path="trait/vec_traits.rs"
+
+[[bin]]
 name="iterator"
 path="iterator/main.rs"
 
