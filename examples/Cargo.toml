@@ -76,3 +76,7 @@ path="refcell/main.rs"
 [[bin]]
 name="arc"
 path="arc/main.rs"
+
+[[bin]]
+name="arc1"
+path="arc/main1.rs"
