@@ -21,7 +21,8 @@ fn main() {
     // create new pointer to a, increase strong refer count
     let b = Cons(3, Rc::clone(&a));
     println!("link to b, strong count of a: {}", Rc::strong_count(&a)); // 2
-                                                                        // create new pointer to a
+
+    // create new pointer to a
     let c = Cons(4, Rc::clone(&a));
     println!("link to c, strong count of a: {}", Rc::strong_count(&a)); // 3
 
