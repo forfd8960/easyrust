@@ -60,3 +60,7 @@ path="convert/main.rs"
 [[bin]]
 name="rc"
 path="rc/main.rs"
+
+[[bin]]
+name="rc1"
+path="rc/cons.rs"
