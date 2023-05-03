@@ -29,6 +29,19 @@ fn get_fn(instr: &str) -> impl FnMut(i32) -> i32 {
     }
 }
 
+/*
+10 is larger
+def is larger
+abc is larger
+input data: hello, world!
+input data: this is good day
+ double 12
+double 6: 12
+triple 18
+triple 6: 18
+do nothing for: 6
+nothing for 6: 6
+*/
 fn main() {
     larger_data(8, 10);
     larger_data("abc", "def");
