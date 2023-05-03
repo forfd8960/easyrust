@@ -36,8 +36,6 @@ where
 
 fn main() {}
 
-// self.messages.push(msg.to_string());
-//   |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ `self` is a `&` reference, so the data it refers to cannot be borrowed as mutable
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -65,8 +63,26 @@ mod tests {
     fn test_send_over_75_percent_warn_message() {
         let mock_message = MockMessager::new();
         let mut limit_tracker = LimitTracker::new(&mock_message, 100);
+        limit_tracker.set_value(75);
+
+        let vec_str = mock_message.messages.borrow();
+        let err_msg = vec_str.get(0);
+        assert_eq!(vec_str.len(), 1);
+        assert_eq!(
+            err_msg,
+            Some(&"Warn: used up 75% of your quota".to_string())
+        );
+    }
+
+    #[test]
+    fn test_send_over_90_percent_warn_message() {
+        let mock_message = MockMessager::new();
+        let mut limit_tracker = LimitTracker::new(&mock_message, 100);
         limit_tracker.set_value(100);
 
-        assert_eq!(mock_message.messages.borrow().len(), 1);
+        let vec_str = mock_message.messages.borrow();
+        let err_msg = vec_str.get(0);
+
+        assert_eq!(err_msg, Some(&"Error: out of quota".to_string()));
     }
 }
