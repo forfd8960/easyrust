@@ -72,3 +72,7 @@ path="rc/cons.rs"
 [[bin]]
 name="refcell"
 path="refcell/main.rs"
+
+[[bin]]
+name="arc"
+path="arc/main.rs"
