@@ -1,4 +1,6 @@
-#[derive(Debug)]
+use std::cell::RefCell;
+
+#[derive(Debug, Clone)]
 enum Lang {
     Rust,
     Go,
@@ -26,18 +28,12 @@ struct Date {
 
 #[derive(Debug)]
 struct LangList {
-    lang_list: Vec<Lang>,
+    lang_list: RefCell<Vec<Lang>>,
 }
 
 impl LangList {
-    fn push(&mut self, lang: Lang) {
-        self.lang_list.push(lang)
-    }
-
-    fn list_langs(&self, result: &mut Vec<String>) {
-        for l in &self.lang_list {
-            result.push(l.to_string())
-        }
+    fn push(&self, lang: Lang) {
+        self.lang_list.borrow_mut().push(lang)
     }
 }
 
@@ -45,17 +41,17 @@ impl LangList {
 struct Project<'a> {
     name: &'a str,
     start_date: &'a Date,
-    language: &'a mut LangList,
+    language: &'a LangList,
     code_lines: u32,
     eng_count: u8,
 }
 
 impl<'a> Project<'a> {
-    fn new(name: &'a str, start_date: &'a Date, langages: &'a mut LangList) -> Self {
+    fn new(name: &'a str, start_date: &'a Date, langs: &'a LangList) -> Self {
         Project {
             name: name,
             start_date: start_date,
-            language: langages,
+            language: langs,
             code_lines: 0,
             eng_count: 0,
         }
@@ -69,12 +65,8 @@ impl<'a> Project<'a> {
         self.eng_count += count;
     }
 
-    fn append_lang(&mut self, new_lang: Lang) {
+    fn append_lang(&self, new_lang: Lang) {
         self.language.push(new_lang);
-    }
-
-    fn list_langs(&self, result: &mut Vec<String>) {
-        self.language.list_langs(result)
     }
 }
 
@@ -86,7 +78,7 @@ fn main() {
     };
     let name = "rust-project";
     let lang = &mut LangList {
-        lang_list: vec![Lang::Rust],
+        lang_list: RefCell::new(vec![Lang::Rust]),
     };
     let prj = Project::new(&name, &date, lang);
     println!("{:?}", prj);
@@ -105,7 +97,8 @@ fn main() {
     prj2.increase_lines(1000);
     println!("code_lines: {}", prj2.code_lines);
 
-    let result = &mut Vec::<String>::new();
-    prj2.list_langs(result);
-    println!("{:?}", result);
+    let lang_list: Vec<Lang> = prj2.language.lang_list.borrow().to_vec();
+    for lang in lang_list {
+        println!("programming-language: {:?}", lang);
+    }
 }

@@ -84,3 +84,7 @@ path="arc/main1.rs"
 [[bin]]
 name="advanedtrait"
 path="advanced-trait/main.rs"
+
+[[bin]]
+name="cow"
+path="cow/main.rs"

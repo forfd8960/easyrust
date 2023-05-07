@@ -69,8 +69,8 @@ mod tests {
         let err_msg = vec_str.get(0);
         assert_eq!(vec_str.len(), 1);
         assert_eq!(
-            err_msg,
-            Some(&"Warn: used up 75% of your quota".to_string())
+            *err_msg.unwrap(),
+            "Warn: used up 75% of your quota".to_string()
         );
     }
 
