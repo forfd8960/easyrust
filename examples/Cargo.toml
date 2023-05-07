@@ -38,6 +38,10 @@ name="trait"
 path="trait/main.rs"
 
 [[bin]]
+name="trait-obj"
+path="trait-obj/main.rs"
+
+[[bin]]
 name="impltrait"
 path="trait/impl_trait.rs"
 

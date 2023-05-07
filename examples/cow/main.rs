@@ -38,17 +38,18 @@ fn deduplicate_elements<'a>(input: &'a [Element]) -> Cow<'a, [Element]> {
 
         set.insert(item.id);
     }
+
     if !has_duplicate {
         return Cow::Borrowed(input);
     }
 
     let mut result = Vec::<Element>::new();
-    for item in input {
+    input.iter().for_each(|item| {
         if set.contains(&item.id) {
             result.push(item.to_owned());
             set.remove(&item.id);
         }
-    }
+    });
 
     Cow::Owned(result)
 }
