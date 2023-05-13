@@ -43,9 +43,16 @@ mod back_of_hosue {
     fn cook_order() {}
 }
 
+use crate::front_of_house::hosting;
+
+mod customer {
+    pub fn eat_at_restaurant() {
+        super::hosting::add_wait_list();
+    }
+}
+
 pub fn eat_at_restaurant() {
-    crate::front_of_house::hosting::add_wait_list();
-    front_of_house::hosting::add_wait_list();
+    hosting::add_wait_list();
 
     let order1 = back_of_hosue::Appetizer::Soup;
     let order2 = back_of_hosue::Appetizer::Salad;
