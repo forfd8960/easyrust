@@ -14,6 +14,12 @@ mod front_of_house {
 fn delivery_order() {}
 
 mod back_of_hosue {
+    #[derive(Debug)]
+    pub enum Appetizer {
+        Soup,
+        Salad,
+    }
+
     pub struct Breakfirst {
         pub toast: String,
         season_fruit: String,
@@ -40,6 +46,16 @@ mod back_of_hosue {
 pub fn eat_at_restaurant() {
     crate::front_of_house::hosting::add_wait_list();
     front_of_house::hosting::add_wait_list();
+
+    let order1 = back_of_hosue::Appetizer::Soup;
+    let order2 = back_of_hosue::Appetizer::Salad;
+    println!("{:?}, {:?}", order1, order2);
+
+    let mut meal = back_of_hosue::Breakfirst::summer("Rye");
+    meal.toast = String::from("Wheat");
+    println!("I'd like {} toast please", meal.toast);
+    // error[E0616]: field `season_fruit` of struct `Breakfirst` is private
+    // meal.season_fruit = String::from("blueberries");
 }
 
 #[cfg(test)]
