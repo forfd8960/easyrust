@@ -1,4 +1,4 @@
-mod memory;
+pub mod memory;
 
 use crate::errors::KvError;
 use crate::pb::abi::{Kvpair, Value};

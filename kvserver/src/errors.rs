@@ -1,1 +1,3 @@
-pub enum KvError {}
+pub enum KvError {
+    NotImplemented(String),
+}
