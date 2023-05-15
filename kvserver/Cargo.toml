@@ -9,6 +9,7 @@ edition = "2021"
 bytes = "1.4.0"
 prost = "0.11"
 dashmap = "5.4.0"
+thiserror = "1.0.40"
 
 [build-dependencies]
 prost-build = "0.11.8"

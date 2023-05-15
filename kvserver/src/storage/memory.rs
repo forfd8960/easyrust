@@ -1,5 +1,5 @@
 use crate::{KvError, Kvpair, Storage, Value};
-use dashmap::DashMap;
+use dashmap::{mapref::one::Ref, DashMap};
 
 #[derive(Debug, Clone, Default)]
 pub struct MemTable {
@@ -8,13 +8,26 @@ pub struct MemTable {
 
 impl MemTable {
     pub fn new() -> Self {
-        MemTable {
-            tables: DashMap::new(),
+        Self::default()
+    }
+
+    fn get_or_create_table(&self, name: &str) -> Ref<String, DashMap<String, Value>> {
+        match self.tables.get(name) {
+            Some(table) => table,
+            None => {
+                let entry = self.tables.entry(name.into()).or_default();
+                entry.downgrade()
+            }
         }
     }
 }
 
 impl Storage for MemTable {
+    fn get(&self, table: &str, key: &str) -> Result<Option<Value>, KvError> {
+        let table = self.get_or_create_table(table);
+        Ok(table.get(key).map(|v| v.value().clone()))
+    }
+
     fn set(&self, table: &str, key: &str, value: &str) -> Result<Option<Value>, KvError> {
         Ok(None)
     }
@@ -24,10 +37,6 @@ impl Storage for MemTable {
     }
 
     fn del(&self, table: &str, key: &str) -> Result<Option<Value>, KvError> {
-        Ok(None)
-    }
-
-    fn get(&self, table: &str, key: &str) -> Result<Option<Value>, KvError> {
         Ok(None)
     }
 
