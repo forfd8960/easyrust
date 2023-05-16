@@ -28,20 +28,34 @@ impl Storage for MemTable {
         Ok(table.get(key).map(|v| v.value().clone()))
     }
 
-    fn set(&self, table: &str, key: &str, value: &str) -> Result<Option<Value>, KvError> {
-        Ok(None)
+    fn set(&self, table: &str, key: String, value: Value) -> Result<Option<Value>, KvError> {
+        let table = self.get_or_create_table(table);
+        let result = table.insert(key, value);
+        Ok(result)
     }
 
     fn contains(&self, table: &str, key: &str) -> Result<Option<bool>, KvError> {
-        Ok(None)
+        let table = self.get_or_create_table(table);
+        let result = table.get(key);
+        Ok(Some(result.is_some()))
     }
 
-    fn del(&self, table: &str, key: &str) -> Result<Option<Value>, KvError> {
-        Ok(None)
+    fn del(&self, table_name: &str, key: &str) -> Result<Option<Value>, KvError> {
+        let table = self.get_or_create_table(table_name);
+        let result = table.remove(key);
+        match result {
+            Some(kv) => Ok(Some(kv.1)),
+            None => Err(KvError::NotFound(table_name.to_string(), key.to_string())),
+        }
     }
 
-    fn get_all(&self, table: &str) -> Result<Vec<Value>, KvError> {
-        Ok(vec![])
+    fn get_all(&self, table_name: &str) -> Result<Vec<Kvpair>, KvError> {
+        let table = self.get_or_create_table(table_name);
+        let table_clone = table.clone();
+        let iter = table_clone
+            .into_iter()
+            .map(|(key, value)| Kvpair::new(key, value));
+        Ok(Vec::from_iter(iter))
     }
 
     fn get_iter(&self, table: &str) -> Result<Box<dyn Iterator<Item = Kvpair>>, KvError> {

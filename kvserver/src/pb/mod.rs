@@ -15,7 +15,7 @@ impl CommandRequest {
 }
 
 impl Kvpair {
-    fn new(key: impl Into<String>, value: Value) -> Self {
+    pub fn new(key: impl Into<String>, value: Value) -> Self {
         Self {
             key: key.into(),
             value: Some(value),
