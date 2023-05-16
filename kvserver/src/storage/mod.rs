@@ -1,4 +1,5 @@
 pub mod memory;
+pub use memory::MemTable;
 
 use crate::errors::KvError;
 use crate::pb::abi::{Kvpair, Value};

@@ -45,7 +45,7 @@ impl Storage for MemTable {
         let result = table.remove(key);
         match result {
             Some(kv) => Ok(Some(kv.1)),
-            None => Err(KvError::NotFound(table_name.to_string(), key.to_string())),
+            None => Ok(None),
         }
     }
 
