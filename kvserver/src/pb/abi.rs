@@ -1,4 +1,5 @@
 /// Request from client
+#[derive(PartialOrd)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CommandRequest {
@@ -7,6 +8,7 @@ pub struct CommandRequest {
 }
 /// Nested message and enum types in `CommandRequest`.
 pub mod command_request {
+    #[derive(PartialOrd)]
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum RequestData {
@@ -31,6 +33,7 @@ pub mod command_request {
     }
 }
 /// Response from server
+#[derive(PartialOrd)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CommandResponse {
@@ -43,6 +46,7 @@ pub struct CommandResponse {
     #[prost(message, repeated, tag = "4")]
     pub pairs: ::prost::alloc::vec::Vec<Kvpair>,
 }
+#[derive(PartialOrd)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Hget {
@@ -51,12 +55,14 @@ pub struct Hget {
     #[prost(string, tag = "2")]
     pub key: ::prost::alloc::string::String,
 }
+#[derive(PartialOrd)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Hgetall {
     #[prost(string, tag = "1")]
     pub table: ::prost::alloc::string::String,
 }
+#[derive(PartialOrd)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Hmget {
@@ -65,6 +71,7 @@ pub struct Hmget {
     #[prost(string, repeated, tag = "2")]
     pub keys: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
+#[derive(PartialOrd)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Value {
@@ -73,6 +80,7 @@ pub struct Value {
 }
 /// Nested message and enum types in `Value`.
 pub mod value {
+    #[derive(PartialOrd)]
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Oneof)]
     pub enum Value {
@@ -88,6 +96,7 @@ pub mod value {
         Bool(bool),
     }
 }
+#[derive(PartialOrd)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Kvpair {
@@ -96,6 +105,7 @@ pub struct Kvpair {
     #[prost(message, optional, tag = "2")]
     pub value: ::core::option::Option<Value>,
 }
+#[derive(PartialOrd)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Hset {
@@ -104,6 +114,7 @@ pub struct Hset {
     #[prost(message, optional, tag = "2")]
     pub pair: ::core::option::Option<Kvpair>,
 }
+#[derive(PartialOrd)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Hmset {
@@ -112,6 +123,7 @@ pub struct Hmset {
     #[prost(message, repeated, tag = "2")]
     pub pairs: ::prost::alloc::vec::Vec<Kvpair>,
 }
+#[derive(PartialOrd)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Hdel {
@@ -120,6 +132,7 @@ pub struct Hdel {
     #[prost(string, tag = "2")]
     pub key: ::prost::alloc::string::String,
 }
+#[derive(PartialOrd)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Hmdel {
@@ -128,6 +141,7 @@ pub struct Hmdel {
     #[prost(string, repeated, tag = "2")]
     pub keys: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
+#[derive(PartialOrd)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Hexist {
@@ -136,6 +150,7 @@ pub struct Hexist {
     #[prost(string, tag = "2")]
     pub key: ::prost::alloc::string::String,
 }
+#[derive(PartialOrd)]
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Hmexist {

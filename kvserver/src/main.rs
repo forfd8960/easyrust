@@ -44,4 +44,38 @@ mod test {
         assert_eq!(v, Ok(Some("day1".into())));
         assert_eq!(Ok(None), store.del("t1", "good"));
     }
+
+    #[test]
+    fn test_get_all() {
+        let store = MemTable::new();
+        store.set("t2", "good".into(), "day".into());
+        store.set("t2", "food".into(), "taste".into());
+
+        let mut data: Vec<_> = store.get_all("t2").unwrap();
+        data.sort_by(|a, b| a.partial_cmp(b).unwrap());
+        assert_eq!(
+            data,
+            vec![
+                Kvpair::new("food", "taste".into()),
+                Kvpair::new("good", "day".into()),
+            ]
+        )
+    }
+
+    #[test]
+    fn test_get_iter() {
+        let store = MemTable::new();
+        store.set("t2", "good".into(), "day".into());
+        store.set("t2", "food".into(), "taste".into());
+
+        let mut data: Vec<_> = store.get_iter("t2").unwrap().collect();
+        data.sort_by(|a, b| a.partial_cmp(b).unwrap());
+        assert_eq!(
+            data,
+            vec![
+                Kvpair::new("food", "taste".into()),
+                Kvpair::new("good", "day".into()),
+            ]
+        )
+    }
 }
