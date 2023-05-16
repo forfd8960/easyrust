@@ -51,10 +51,9 @@ impl Storage for MemTable {
 
     fn get_all(&self, table_name: &str) -> Result<Vec<Kvpair>, KvError> {
         let table = self.get_or_create_table(table_name);
-        let table_clone = table.clone();
-        let iter = table_clone
-            .into_iter()
-            .map(|(key, value)| Kvpair::new(key, value));
+        let iter = table
+            .iter()
+            .map(|kv| Kvpair::new(kv.key(), kv.value().clone()));
         Ok(Vec::from_iter(iter))
     }
 
