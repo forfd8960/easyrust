@@ -34,10 +34,9 @@ impl Storage for MemTable {
         Ok(result)
     }
 
-    fn contains(&self, table: &str, key: &str) -> Result<Option<bool>, KvError> {
+    fn contains(&self, table: &str, key: &str) -> Result<bool, KvError> {
         let table = self.get_or_create_table(table);
-        let result = table.get(key);
-        Ok(Some(result.is_some()))
+        Ok(table.contains_key(key))
     }
 
     fn del(&self, table_name: &str, key: &str) -> Result<Option<Value>, KvError> {
