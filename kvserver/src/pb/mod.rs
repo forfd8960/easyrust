@@ -1,5 +1,5 @@
 use crate::value;
-use crate::{command_request::RequestData, CommandRequest, Hset, Kvpair, Value};
+use crate::{command_request::RequestData, CommandRequest, Hget, Hgetall, Hset, Kvpair, Value};
 
 pub mod abi;
 
@@ -9,6 +9,23 @@ impl CommandRequest {
             request_data: Some(RequestData::Hset(Hset {
                 table: table.into(),
                 pair: Some(Kvpair::new(key, value)),
+            })),
+        }
+    }
+
+    pub fn new_hgetall(table: impl Into<String>) -> Self {
+        Self {
+            request_data: Some(RequestData::Hgetall(Hgetall {
+                table: table.into(),
+            })),
+        }
+    }
+
+    pub fn new_hget(table: impl Into<String>, key: impl Into<String>) -> Self {
+        Self {
+            request_data: Some(RequestData::Hget(Hget {
+                table: table.into(),
+                key: key.into(),
             })),
         }
     }
@@ -35,6 +52,14 @@ impl From<&str> for Value {
     fn from(s: &str) -> Self {
         Self {
             value: Some(value::Value::String(s.to_string())),
+        }
+    }
+}
+
+impl From<i64> for Value {
+    fn from(data: i64) -> Self {
+        Self {
+            value: Some(value::Value::Integer(data)),
         }
     }
 }
