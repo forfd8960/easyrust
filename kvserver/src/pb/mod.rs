@@ -1,5 +1,7 @@
-use crate::value;
+use prost::encoding::message;
+
 use crate::{command_request::RequestData, CommandRequest, Hget, Hgetall, Hset, Kvpair, Value};
+use crate::{value, CommandResponse, KvError};
 
 pub mod abi;
 
@@ -61,5 +63,58 @@ impl From<i64> for Value {
         Self {
             value: Some(value::Value::Integer(data)),
         }
+    }
+}
+
+impl From<Value> for CommandResponse {
+    fn from(v: Value) -> Self {
+        Self {
+            status: 200,
+            values: vec![v],
+            ..Default::default()
+        }
+    }
+}
+
+impl From<bool> for CommandResponse {
+    fn from(v: bool) -> Self {
+        let mut result = Self {
+            status: 200,
+            ..Default::default()
+        };
+        match v {
+            true => result.message = "Y".to_string(),
+            false => result.message = "N".to_string(),
+        }
+        result
+    }
+}
+
+impl From<Vec<Kvpair>> for CommandResponse {
+    fn from(v: Vec<Kvpair>) -> Self {
+        Self {
+            status: 200,
+            pairs: v,
+            ..Default::default()
+        }
+    }
+}
+
+impl From<KvError> for CommandResponse {
+    fn from(err: KvError) -> Self {
+        let mut result = Self {
+            status: 500,
+            message: err.to_string(),
+            values: vec![],
+            pairs: vec![],
+        };
+
+        match err {
+            KvError::NotFound(_, _) => result.status = 404,
+            KvError::InvalidCommand(_) => result.status = 403,
+            _ => {}
+        }
+
+        result
     }
 }
