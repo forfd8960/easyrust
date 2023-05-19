@@ -1,7 +1,6 @@
-use prost::encoding::message;
-
 use crate::{command_request::RequestData, CommandRequest, Hget, Hgetall, Hset, Kvpair, Value};
 use crate::{value, CommandResponse, KvError};
+use http::StatusCode;
 
 pub mod abi;
 
@@ -66,10 +65,18 @@ impl From<i64> for Value {
     }
 }
 
+impl From<bool> for Value {
+    fn from(data: bool) -> Self {
+        Self {
+            value: Some(value::Value::Bool(data)),
+        }
+    }
+}
+
 impl From<Value> for CommandResponse {
     fn from(v: Value) -> Self {
         Self {
-            status: 200,
+            status: StatusCode::OK.as_u16() as u32,
             values: vec![v],
             ..Default::default()
         }
@@ -78,14 +85,12 @@ impl From<Value> for CommandResponse {
 
 impl From<bool> for CommandResponse {
     fn from(v: bool) -> Self {
-        let mut result = Self {
-            status: 200,
+        let result = Self {
+            status: StatusCode::OK.as_u16() as u32,
+            values: vec![v.into()],
             ..Default::default()
         };
-        match v {
-            true => result.message = "Y".to_string(),
-            false => result.message = "N".to_string(),
-        }
+
         result
     }
 }
@@ -103,15 +108,15 @@ impl From<Vec<Kvpair>> for CommandResponse {
 impl From<KvError> for CommandResponse {
     fn from(err: KvError) -> Self {
         let mut result = Self {
-            status: 500,
+            status: StatusCode::INTERNAL_SERVER_ERROR.as_u16() as u32,
             message: err.to_string(),
             values: vec![],
             pairs: vec![],
         };
 
         match err {
-            KvError::NotFound(_, _) => result.status = 404,
-            KvError::InvalidCommand(_) => result.status = 403,
+            KvError::NotFound(_, _) => result.status = StatusCode::NOT_FOUND.as_u16() as u32,
+            KvError::InvalidCommand(_) => result.status = StatusCode::BAD_REQUEST.as_u16() as u32,
             _ => {}
         }
 
