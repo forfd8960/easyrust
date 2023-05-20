@@ -8,10 +8,6 @@ pub use pb::abi::*;
 pub use service::*;
 pub use storage::*;
 
-fn main() {
-    println!("Hello, world!");
-}
-
 #[cfg(test)]
 mod test {
     use super::*;

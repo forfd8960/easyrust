@@ -8,10 +8,22 @@ edition = "2021"
 [dependencies]
 bytes = "1.4.0"
 prost = "0.11"
+async-prost = "0.4.0"
 dashmap = "5.4.0"
 thiserror = "1.0.40"
-tokio = "1.28.1"
+tokio = { version="1.28.1", features = ["full"]}
 http = "0.2.9"
+futures = "0.3.28"
+anyhow = "1.0.71"
 
 [build-dependencies]
 prost-build = "0.11.8"
+
+
+[[bin]]
+name="client"
+path="src/examples/client.rs"
+
+[[bin]]
+name="server"
+path="src/examples/server.rs"
