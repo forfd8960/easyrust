@@ -1,10 +1,10 @@
 use std::io::Result;
 
 fn main() -> Result<()> {
-    prost_build::Config::new()
-        .bytes(&["."])
-        .out_dir("src/pb")
-        .type_attribute(".", "#[derive(PartialOrd)]")
+    let mut conf = prost_build::Config::new();
+    conf.bytes(&["."]);
+    conf.type_attribute(".", "#[derive(PartialOrd)]");
+    conf.out_dir("src/pb")
         .compile_protos(&["abi.proto"], &["."])
         .unwrap();
     Ok(())

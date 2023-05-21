@@ -13,16 +13,16 @@ async fn main() -> Result<()> {
         let (stream, addr) = listner.accept().await?;
         println!("Client {:?} connected", addr);
         tokio::spawn(async move {
-            let mut stream =
+            let mut async_stream =
                 AsyncProstStream::<_, CommandRequest, CommandResponse, _>::from(stream).for_async();
 
-            while let Some(Ok(data)) = stream.next().await {
+            while let Some(Ok(data)) = async_stream.next().await {
                 println!("get command: {}", data);
 
                 let mut resp = CommandResponse::default();
                 resp.status = 404;
                 resp.message = "Not found".to_string();
-                stream.send(resp).await.unwrap();
+                async_stream.send(resp).await.unwrap();
             }
 
             println!("client {:?} disconnected", addr);
