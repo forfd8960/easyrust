@@ -14,6 +14,10 @@ message CommandRequest {
     Hmdel hmdel = 7;
     Hexist hexist = 8;
     Hmexist hmexist = 9;
+    Set set = 10;
+    Get get = 11;
+    LPush lpush = 12;
+    LPop lpop = 13;
   }
 }
 
@@ -80,4 +84,23 @@ message Hexist {
 message Hmexist {
   string table = 1;
   repeated string keys = 2;
+}
+
+message Set {
+  Kvpair pair = 1;
+  int64 ex = 2;
+  int64 px = 3;
+}
+
+message Get {
+  string key = 1;
+}
+
+message LPush {
+  string key = 1;
+  repeated Value values = 2;
+}
+
+message LPop {
+  string key = 1;
 }

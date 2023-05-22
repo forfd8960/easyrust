@@ -3,7 +3,10 @@
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CommandRequest {
-    #[prost(oneof = "command_request::RequestData", tags = "1, 2, 3, 4, 5, 6, 7, 8, 9")]
+    #[prost(
+        oneof = "command_request::RequestData",
+        tags = "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13"
+    )]
     pub request_data: ::core::option::Option<command_request::RequestData>,
 }
 /// Nested message and enum types in `CommandRequest`.
@@ -30,6 +33,14 @@ pub mod command_request {
         Hexist(super::Hexist),
         #[prost(message, tag = "9")]
         Hmexist(super::Hmexist),
+        #[prost(message, tag = "10")]
+        Set(super::Set),
+        #[prost(message, tag = "11")]
+        Get(super::Get),
+        #[prost(message, tag = "12")]
+        Lpush(super::LPush),
+        #[prost(message, tag = "13")]
+        Lpop(super::LPop),
     }
 }
 /// Response from server
@@ -158,4 +169,38 @@ pub struct Hmexist {
     pub table: ::prost::alloc::string::String,
     #[prost(string, repeated, tag = "2")]
     pub keys: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+#[derive(PartialOrd)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Set {
+    #[prost(message, optional, tag = "1")]
+    pub pair: ::core::option::Option<Kvpair>,
+    #[prost(int64, tag = "2")]
+    pub ex: i64,
+    #[prost(int64, tag = "3")]
+    pub px: i64,
+}
+#[derive(PartialOrd)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Get {
+    #[prost(string, tag = "1")]
+    pub key: ::prost::alloc::string::String,
+}
+#[derive(PartialOrd)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LPush {
+    #[prost(string, tag = "1")]
+    pub key: ::prost::alloc::string::String,
+    #[prost(message, repeated, tag = "2")]
+    pub values: ::prost::alloc::vec::Vec<Value>,
+}
+#[derive(PartialOrd)]
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LPop {
+    #[prost(string, tag = "1")]
+    pub key: ::prost::alloc::string::String,
 }
