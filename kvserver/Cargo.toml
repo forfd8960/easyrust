@@ -18,3 +18,12 @@ anyhow = "1.0.71"
 
 [build-dependencies]
 prost-build = "0.11.9"
+
+
+[[bin]]
+name="client"
+path="src/examples/client.rs"
+
+[[bin]]
+name="server"
+path="src/examples/server.rs"
