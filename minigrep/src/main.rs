@@ -1,26 +1,31 @@
 use std::env;
 use std::fs;
+use std::process;
 
 struct Config {
     query: String,
     file_path: String,
 }
+
 impl Config {
-    fn new(args: &[String]) -> Self {
+    fn build(args: &[String]) -> Result<Config, &'static str> {
         if args.len() < 3 {
-            panic("not enough arguments");
+            return Err("not enough arguments");
         }
 
         let query = &args[1].clone();
         let file_path = &args[2].clone();
 
-        Config { query, file_path }
+        Ok(Config { query: query.to_string(), file_path: file_path.to_string() })
     }
 }
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let config = Config::new(&args);
+    let config = Config::build(&args).unwrap_or_else(|err| {
+        println!("parsing arguments: {err}");
+        process::exit(1);
+    });
 
     println!("query: {}, file_path: {}", config.query, config.file_path);
     let content = fs::read_to_string(config.file_path).expect("unable to read the fiel");
