@@ -20,6 +20,11 @@ impl Config {
     }
 }
 
+fn run(config: Config) {
+    let content = fs::read_to_string(config.file_path).expect("unable to read the fiel");
+    println!("read content\n {content}");
+}
+
 fn main() {
     let args: Vec<String> = env::args().collect();
     let config = Config::build(&args).unwrap_or_else(|err| {
@@ -28,6 +33,5 @@ fn main() {
     });
 
     println!("query: {}, file_path: {}", config.query, config.file_path);
-    let content = fs::read_to_string(config.file_path).expect("unable to read the fiel");
-    println!("read content\n {content}");
-}
+    run(config);
+}    
