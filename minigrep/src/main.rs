@@ -1,4 +1,5 @@
 use std::env;
+use std::error::Error;
 use std::fs;
 use std::process;
 
@@ -16,13 +17,17 @@ impl Config {
         let query = &args[1].clone();
         let file_path = &args[2].clone();
 
-        Ok(Config { query: query.to_string(), file_path: file_path.to_string() })
+        Ok(Config {
+            query: query.to_string(),
+            file_path: file_path.to_string(),
+        })
     }
 }
 
-fn run(config: Config) {
-    let content = fs::read_to_string(config.file_path).expect("unable to read the fiel");
+fn run(config: Config) -> Result<(), Box<dyn Error>> {
+    let content = fs::read_to_string(config.file_path)?;
     println!("read content\n {content}");
+    Ok(())
 }
 
 fn main() {
@@ -33,5 +38,8 @@ fn main() {
     });
 
     println!("query: {}, file_path: {}", config.query, config.file_path);
-    run(config);
-}    
+    match run(config) {
+        Ok(()) => println!("sucess read content"),
+        Err(e) => println!(" has error: {e} when reading file"),
+    };
+}
